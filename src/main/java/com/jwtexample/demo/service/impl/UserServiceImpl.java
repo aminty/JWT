@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -23,26 +24,28 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public AppUser saveUser(AppUser user) {
-        return null;
+        return userRepository.save(user);
     }
 
     @Override
     public Role saveRole(Role role) {
-        return null;
+        return roleRepository.save(role);
     }
 
     @Override
     public void addRoleToAppUser(String username, String roleName) {
-
+        AppUser user=userRepository.findAppUserByUsername(username);
+        Role role=roleRepository.findByName(roleName);
+        user.getRoles().add(role);
     }
 
     @Override
     public AppUser getUser(String username) {
-        return null;
+        return userRepository.findAppUserByUsername(username);
     }
 
     @Override
-    public Set<AppUser> getAppUsers() {
-        return null;
+    public List<AppUser> getAppUsers() {
+        return userRepository.findAll();
     }
 }

@@ -3,6 +3,7 @@ package com.jwtexample.demo.service;
 import com.jwtexample.demo.domain.AppUser;
 import com.jwtexample.demo.domain.Role;
 
+import java.util.List;
 import java.util.Set;
 
 public interface UserService  {
@@ -15,7 +16,7 @@ public interface UserService  {
 
     AppUser getUser(String username);
 
-    Set<AppUser> getAppUsers();
+    List<AppUser> getAppUsers();
 
 
 }
