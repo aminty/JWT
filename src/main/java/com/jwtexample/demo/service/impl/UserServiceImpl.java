@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -28,6 +29,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final RoleRepository roleRepository;
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
 
     /** This method implemented from UserDetailedService
     * and use for that , how to use from  user info in database */
@@ -51,6 +54,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public AppUser saveUser(AppUser user) {
         log.info("user {} saved successfully", user.getName());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
