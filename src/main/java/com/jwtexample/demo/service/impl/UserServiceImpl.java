@@ -46,6 +46,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         List<SimpleGrantedAuthority> authorities=new ArrayList<>();
         user.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getName())));
 
+
         /**org.springframework.security.core.userdetails.User()*/
         return new User(user.getUsername(),user.getPassword(),authorities);
     }
