@@ -12,6 +12,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -39,6 +40,7 @@ public class UserController {
     final private UserService userService;
 
     @GetMapping("/users")
+    //@PreAuthorize("hasRole(ROLE_ADMIN)")
     public ResponseEntity<List<AppUser>> getUsers() {
         return ResponseEntity.ok().body(userService.getAppUsers());
     }

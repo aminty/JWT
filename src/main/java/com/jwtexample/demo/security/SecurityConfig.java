@@ -36,6 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
          * use when we  want to change default login url to custom url
          */
         customAuthenticationFilter.setFilterProcessesUrl("/api/login");
+        http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests().antMatchers("/api/login/**","api/token/refresh/**").permitAll();
@@ -43,7 +44,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers(GET,"/api/user").hasAnyAuthority("ROLE_USER");
         http.authorizeHttpRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);
-        http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
 
     }
     @Bean
